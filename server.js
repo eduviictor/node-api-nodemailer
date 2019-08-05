@@ -19,7 +19,7 @@ app.post("/send", async (req, res) => {
   });
 
   const mailOptions = {
-    from: process.env.EMAIL_GMAIL,
+    from: "eduvictornobrega@gmail.com",
     to: "eduvictornobrega@gmail.com",
     subject: "Denúncia GEO_REF",
     html: `<h1>Problema: </h1> <p>${obj.problema}</p>\n
@@ -39,4 +39,4 @@ app.post("/send", async (req, res) => {
   res.json(obj);
 });
 
-app.listen(!process.env.PORT ? 3001 : process.env.PORT, () => console.log("Server running on port 3001"));
+app.listen(process.env.PORT || 3001, () => console.log("Server running on port 3001"));

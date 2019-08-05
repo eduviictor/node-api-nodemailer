@@ -19,7 +19,7 @@ app.post("/send", async (req, res) => {
   });
 
   const mailOptions = {
-    from: "eduvictornobrega@gmail.com",
+    from: process.env.EMAIL_GMAIL,
     to: "eduvictornobrega@gmail.com",
     subject: "Denúncia GEO_REF",
     html: `<h1>Problema: </h1> <p>${obj.problema}</p>\n

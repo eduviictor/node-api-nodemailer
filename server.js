@@ -7,16 +7,20 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+console.log(typeof(process.env.EMAIL_GMAIL))
+
 app.post("/send", async (req, res) => {
   const obj = req.body;
   // console.log(process.env);
   let transporter = nodemailer.createTransport({
-    service: "gmail",
+    service: "Gmail",
     auth: {
       user: process.env.EMAIL_GMAIL,
       pass: process.env.PASSWORD_GMAIL
     }
   });
+
+  
 
   const mailOptions = {
     from: "eduvictornobrega@gmail.com",

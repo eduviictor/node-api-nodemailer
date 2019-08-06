@@ -2,31 +2,40 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const nodemailer = require("nodemailer");
+const base64ToImage = require("base64-to-image");
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
 // const uri = process.env.SMTP;
-let transporter = nodemailer.createTransport({
-  service: "Mailjet",
-  port: 587,
-  auth: {
-    user: process.env.USER,
-    pass: process.env.PASS
-  }
-});
+// let transporter = nodemailer.createTransport({
+//   service: "Mailjet",
+//   port: 587,
+//   auth: {
+//     user: process.env.USER,
+//     pass: process.env.PASS
+//   }
+// });
 
+const path = "./images/";
+const optionsImage = {
+  "fileName": "image",
+};
 
 app.post("/send", async (req, res) => {
   const obj = req.body;
   // console.log(process.env);
 
+  const base64 = obj.base64Image;
+  // console.log(base64);
+  await base64ToImage(base64, path, optionsImage);
 
   const mailOptions = {
     from: "eduvictornobrega@gmail.com",
     to: "eduvictornobrega@gmail.com",
     subject: "Denúncia GEO_REF",
+    attachments: [{ filename: "image.jpeg", path: "./images/image.jpeg" }],
     html: `<h1>Problema: </h1> <p>${obj.problema}</p>\n
     <h1>Endereço: </h1><p>${obj.enderecoProblema}</p>\n
     ${!obj.informacoesAdicionais ? '' : '<h1>Informações adicionais: </h1> <p>' + obj.informacoesAdicionais + '</p>'}`

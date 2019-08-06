@@ -9,12 +9,12 @@ app.use(cors());
 
 app.post("/send", async (req, res) => {
   const obj = req.body;
-  console.log(process.env);
+  // console.log(process.env);
   let transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: `${process.env.EMAIL_GMAIL}`,
-      pass: `${process.env.PASSWORD_GMAIL}`
+      user: process.env.EMAIL_GMAIL,
+      pass: process.env.PASSWORD_GMAIL
     }
   });
 
@@ -27,7 +27,7 @@ app.post("/send", async (req, res) => {
     ${!obj.informacoesAdicionais ? '' : '<h1>Informações adicionais: </h1> <p>' + obj.informacoesAdicionais + '</p>'}`
   };
 
-  console.log(obj);
+  // console.log(obj);
 
   transporter.sendMail(mailOptions, (err, info) => {
     if(err){

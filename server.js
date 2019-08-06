@@ -7,20 +7,21 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-console.log(typeof(process.env.EMAIL_GMAIL))
+// const uri = process.env.SMTP;
+let transporter = nodemailer.createTransport({
+  service: "Mailjet",
+  port: 587,
+  auth: {
+    user: process.env.USER,
+    pass: process.env.PASS
+  }
+});
+
 
 app.post("/send", async (req, res) => {
   const obj = req.body;
   // console.log(process.env);
-  let transporter = nodemailer.createTransport({
-    service: "Gmail",
-    auth: {
-      user: process.env.EMAIL_GMAIL,
-      pass: process.env.PASSWORD_GMAIL
-    }
-  });
 
-  
 
   const mailOptions = {
     from: "eduvictornobrega@gmail.com",
@@ -43,4 +44,6 @@ app.post("/send", async (req, res) => {
   res.json(obj);
 });
 
-app.listen(process.env.PORT || 3001, () => console.log("Server running on port 3001"));
+const PORT = process.env.PORT || 3001;
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

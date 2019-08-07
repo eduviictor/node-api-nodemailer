@@ -9,14 +9,14 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // const uri = process.env.SMTP;
-// let transporter = nodemailer.createTransport({
-//   service: "Mailjet",
-//   port: 587,
-//   auth: {
-//     user: process.env.USER,
-//     pass: process.env.PASS
-//   }
-// });
+let transporter = nodemailer.createTransport({
+  service: "Mailjet",
+  port: 587,
+  auth: {
+    user: process.env.USER,
+    pass: process.env.PASS
+  }
+});
 
 const path = "./images/";
 const optionsImage = {

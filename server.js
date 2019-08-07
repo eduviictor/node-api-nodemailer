@@ -18,18 +18,19 @@ let transporter = nodemailer.createTransport({
   }
 });
 
-const path = "./images/";
-const optionsImage = {
-  "fileName": "image",
-};
 
 app.post("/send", async (req, res) => {
   const obj = req.body;
   // console.log(process.env);
-
+  const path = "./images/";
+  const optionsImage = {
+    "fileName": "image",
+  };
+  
   const base64 = obj.base64Image;
   // console.log(base64);
-  await base64ToImage(base64, path, optionsImage);
+  const test = await base64ToImage(base64, path, optionsImage);
+  console.log("test", test)
 
   const mailOptions = {
     from: "eduvictornobrega@gmail.com",

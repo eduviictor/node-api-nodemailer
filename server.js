@@ -5,7 +5,7 @@ const nodemailer = require("nodemailer");
 const base64ToImage = require("base64-to-image");
 
 const app = express();
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: "10mb", extended: true }));
 app.use(cors());
 
 // const uri = process.env.SMTP;

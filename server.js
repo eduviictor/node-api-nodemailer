@@ -39,10 +39,9 @@ app.post("/send", async (req, res) => {
     attachments: [{ filename: "image.jpeg", path: "./images/image.jpeg" }],
     html: `<h1>Problema: </h1> <p>${obj.problema}</p>\n
     <h1>Endereço: </h1><p>${obj.enderecoProblema}</p>\n
+    <h1>Cidade: </h1><p>${obj.cidade}</p>\n
     ${!obj.informacoesAdicionais ? '' : '<h1>Informações adicionais: </h1> <p>' + obj.informacoesAdicionais + '</p>'}`
   };
-
-  // console.log(obj);
 
   transporter.sendMail(mailOptions, (err, info) => {
     if(err){

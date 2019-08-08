@@ -34,7 +34,7 @@ app.post("/send", async (req, res) => {
 
   const mailOptions = {
     from: "eduvictornobrega@gmail.com",
-    to: "eduvictornobrega@gmail.com",
+    to: ["eduvictornobrega@gmail.com", "georef2019@gmail.com"],
     subject: "Denúncia GEO_REF",
     attachments: [{ filename: "image.jpeg", path: "./images/image.jpeg" }],
     html: `<h1>Problema: </h1> <p>${obj.problema}</p>\n

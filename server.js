@@ -39,9 +39,9 @@ app.post("/send", async (req, res) => {
     attachments: [{ filename: "image.jpeg", path: "./images/image.jpeg" }],
     html: `<h1>Problema: </h1> <p>${obj.problema}</p>\n
     <h1>Endereço: </h1><p>${obj.enderecoProblema}</p>\n
-    <h4>Latitude: </h4><p>${obj.latitude}</p>\n
-    <h4>Longitude: </h4><p>${obj.longitude}</p>\n
-    <h1>Cidade: </h1><p>${obj.cidade}</p>\n
+    <h4>Cidade: </h4><span>${obj.cidade}</span>\n
+    <h4>Latitude: <span>${obj.latitude}</span></h4>\n
+    <h4>Longitude: <span>${obj.longitude}</span></h4>\n
     ${!obj.informacoesAdicionais ? '' : '<h1>Informações adicionais: </h1> <p>' + obj.informacoesAdicionais + '</p>'}`
   };
 

@@ -93,7 +93,8 @@ app.get("/listReports", (req, res) => {
     await snapShot.forEach(doc => {
       // console.log(doc.id, "=>", doc.data());
       const obj = doc.data();
-      array.push(obj);
+      const newObj = { ...obj, id: doc.id };
+      array.push(newObj);
     });
     return res.json(array);
   }).catch(err => {

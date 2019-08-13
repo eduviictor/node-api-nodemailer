@@ -3,6 +3,23 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const nodemailer = require("nodemailer");
 const base64ToImage = require("base64-to-image");
+const firebase = require("firebase");
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDnQBexSZKrUuwnaIf-X6T4RpAv4gkVvOc",
+  authDomain: "crud-react-firebase-6b0bd.firebaseapp.com",
+  databaseURL: "https://crud-react-firebase-6b0bd.firebaseio.com",
+  projectId: "crud-react-firebase-6b0bd",
+  storageBucket: "crud-react-firebase-6b0bd.appspot.com",
+  messagingSenderId: "358021316590",
+  appId: "1:358021316590:web:85dc9f0a2bb4d931"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+let db = firebase.firestore();
+
+
 
 const app = express();
 app.use(bodyParser.json({ limit: "10mb", extended: true }));
@@ -53,6 +70,30 @@ app.post("/send", async (req, res) => {
     }
   });
   res.json(obj);
+});
+
+app.post("/report", async (req, res) => {
+  const obj = req.body;
+  let docRef = db.collection("avaliacoes").doc();
+
+  let setObj = await docRef.set({
+    respostas: obj.respostas,
+    informacoesAdicionais: obj.infoAdicionais,
+    rating: obj.rating
+  });
+
+  console.log("objeto enviado", setObj);
+  return res.json(setObj);
+});
+
+app.get("/listReports",(req, res) => {
+  db.collection("avaliacoes").get().then(snapShot => {
+    snapShot.forEach(doc => {
+      console.log(doc.id, "=>", doc.data());
+    })
+  }).catch(err => {
+    console.log("Error", err);
+  })
 });
 
 const PORT = process.env.PORT || 3001;

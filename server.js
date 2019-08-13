@@ -86,14 +86,22 @@ app.post("/report", async (req, res) => {
   return res.json(setObj);
 });
 
-app.get("/listReports",(req, res) => {
-  db.collection("avaliacoes").get().then(snapShot => {
-    snapShot.forEach(doc => {
-      console.log(doc.id, "=>", doc.data());
-    })
+app.get("/listReports", (req, res) => {
+  
+  db.collection("avaliacoes").get().then(async snapShot => {
+    let array = [];
+    await snapShot.forEach(doc => {
+      // console.log(doc.id, "=>", doc.data());
+      const obj = doc.data();
+      array.push(obj);
+    });
+    return res.json(array);
   }).catch(err => {
     console.log("Error", err);
+    return res.send("Error");
   })
+  
+  // return res.json(array);
 });
 
 const PORT = process.env.PORT || 3001;
